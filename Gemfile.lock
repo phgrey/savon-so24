@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    savon-economic (0.0.1)
+    savon-so24 (0.0.1)
       rails (~> 3.2.13)
       savon (~> 2.2.0)
 
@@ -128,5 +128,5 @@ DEPENDENCIES
   jquery-rails
   rake
   rspec-rails
-  savon-economic!
+  savon-so24!
   sqlite3

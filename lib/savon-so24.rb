@@ -2,13 +2,13 @@
 require 'active_support/dependencies'
 ActiveSupport::Dependencies.autoload_paths << File.dirname(__FILE__)
 
-require 'savon/economic'
+require 'savon/so24'
 
 module Savon
-  module Economic
+  module So24
 
   end
 end
 
 
-require 'savon/economic/wasabi_patch'
+require 'savon/so24/wasabi_patch'

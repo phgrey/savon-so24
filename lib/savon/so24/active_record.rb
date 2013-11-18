@@ -1,9 +1,9 @@
-module Savon::Economic
+module Savon::So24
   module ActiveRecord
-    def economic options
+    def so24 options
       options = {name:options} unless options.is_a? Hash
-      e_class = options[:class] || ['Savon','Economic', 'Model', options[:name].to_s.camelcase].join('::').constantize
-      throw new Exception "Class #{self.name} already has included another Savon::Economic model" if self.included_modules.include? LocalMethods
+      e_class = options[:class] || ['Savon','So24', 'Model', options[:name].to_s.camelcase].join('::').constantize
+      throw new Exception "Class #{self.name} already has included another Savon::So24 model" if self.included_modules.include? LocalMethods
       class_attribute :economic_class
       self.economic_class = e_class
       include LocalMethods

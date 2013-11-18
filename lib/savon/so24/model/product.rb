@@ -1,4 +1,4 @@
-module Savon::Economic::Model
+module Savon::So24::Model
   class Product < Base
 
     class_operations :find_by_bar_code

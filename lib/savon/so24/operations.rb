@@ -3,7 +3,7 @@
 # b) custom convert_request_keys_to
 
 module Savon
-  module Economic
+  module So24
     module Operations
 
       def client globals={}

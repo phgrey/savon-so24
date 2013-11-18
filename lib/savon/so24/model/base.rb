@@ -1,4 +1,4 @@
-class Savon::Economic::Model::Base
+class Savon::So24::Model::Base
   extend Operations
 
   class_attribute :id_number, instance_writer:false

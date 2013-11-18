@@ -1,4 +1,4 @@
-module Savon::Economic::Model
+module Savon::So24::Model
   class OrderLine < Base
 
 

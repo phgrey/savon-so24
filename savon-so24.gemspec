@@ -1,17 +1,17 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "savon/economic/version"
+require "savon/so24/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "savon-economic"
-  s.version     = Savon::Economic::VERSION
+  s.name        = "savon-so24"
+  s.version     = Savon::So24::VERSION
   s.authors     = ["Sergey Semenov"]
   s.email       = ["phgrey@gmail.com"]
-  s.homepage    = "https://github.com/phgrey/savon-economic"
-  s.summary     = "Client for e-conomic.com service based on Savon"
-  s.description = "ActiveRecord extension used for connecting application models with e-conomic classes"
+  s.homepage    = "https://github.com/phgrey/savon-so24"
+  s.summary     = "Client for 24sevenoffice service based on Savon"
+  s.description = "ActiveRecord extension used for connecting application models with 24so classes"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]

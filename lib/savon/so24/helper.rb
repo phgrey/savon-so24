@@ -1,4 +1,4 @@
-module Savon::Economic
+module Savon::So24
   module Helper
     def config
       Model::Base.config

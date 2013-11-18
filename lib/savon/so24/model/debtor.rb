@@ -1,4 +1,4 @@
-module Savon::Economic::Model
+module Savon::So24::Model
   class Debtor < Base
 
     class_operations :get_debtor_contacts
