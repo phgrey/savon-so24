@@ -61,11 +61,11 @@ class Savon::So24::Model::Base
   end
 
   def import!
-    from_economic self.class.find external_id
+    from_so24 self.class.find external_id
   end
 
-  #def from_economic hash
-  #  self.class.from_economic hash
+  #def from_so24 hash
+  #  self.class.from_so24 hash
   #end
 
   def self.all
@@ -104,7 +104,7 @@ class Savon::So24::Model::Base
 
   def create! force = false
     throw Exception.new "Can not create #{self.class.name} (id=#{id}) with external_id" if external_id? && !force
-    self.external_id = self.class.create for_economic
+    self.external_id = self.class.create for_so24
     save
     external_id
   end
@@ -115,7 +115,7 @@ class Savon::So24::Model::Base
 
   def update!
     check_external_id! 'update'
-    self.class.update for_economic.merge self_handle => {id_number => external_id}
+    self.class.update for_so24.merge self_handle => {id_number => external_id}
   end
 
   def export

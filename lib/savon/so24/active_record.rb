@@ -4,8 +4,8 @@ module Savon::So24
       options = {name:options} unless options.is_a? Hash
       e_class = options[:class] || ['Savon','So24', 'Model', options[:name].to_s.camelcase].join('::').constantize
       throw new Exception "Class #{self.name} already has included another Savon::So24 model" if self.included_modules.include? LocalMethods
-      class_attribute :economic_class
-      self.economic_class = e_class
+      class_attribute :so24_class
+      self.so24_class = e_class
       include LocalMethods
       throw new Exception "Class #{e_class} has been already included by another ActiveRecord model" if e_class.included_modules.include? RemoteMethods
       e_class.send :include, RemoteMethods
@@ -15,19 +15,19 @@ module Savon::So24
       extend ActiveSupport::Concern
 
       def remote
-        @economic_instance ||= economic_class.new self
+        @so24_instance ||= so24_class.new self
       end
 
-      def economic_config
-        self.class.economic_config
+      def so24_config
+        self.class.so24_config
       end
 
       module ClassMethods
         def remote
-          economic_class
+          so24_class
         end
 
-        def economic_config
+        def so24_config
           remote.config
         end
       end
