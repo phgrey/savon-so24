@@ -1,10 +1,12 @@
 module Savon::So24::Model
   class Product < Base
 
-    class_operations :find_by_bar_code
-    def self.by_code code
-      handle = find_by_bar_code bar_code:code
-      handle && by_handles([handle])
+    def self.all
+      request(:get_product, product_search:{})[:product_item]
+    end
+
+    def self.find id
+      request(:get_product, product_search:{product_id:id})[:product_item]
     end
 
   end

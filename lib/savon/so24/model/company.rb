@@ -1,5 +1,6 @@
 module Savon::So24::Model
-  class Department < Base
+  class Company < Base
+
 
   end
 end

@@ -4,13 +4,12 @@ require 'savon/soap_fault'
 # i'll extend it with several methods to check
 
 module Savon::So24::Exception
-  def is_integrity?
-    check_with_regexp /Economic\.Api\.Exceptions\.IntegrityException/
-  end
+  #def is_integrity?
+  #  check_with_regexp /Economic\.Api\.Exceptions\.IntegrityException/
+  #end
 
   def is_auth_not_logged?
-    check_with_regexp(/Economic\.Api\.Exceptions\.AuthenticationException.*User is not authenticated/) ||
-      check_with_regexp(/Economic\.Api\.Exceptions\.AuthenticationException.*Not logged in/)
+    check_with_regexp(/System\.Exception: The request to .* is not authenticated/)
   end
 
   private

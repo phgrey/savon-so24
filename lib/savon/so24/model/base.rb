@@ -1,33 +1,22 @@
-class Savon::So24::Model::Base
+module Savon::So24
+  module Model
+    class Base
   extend Operations
 
   class_attribute :id_number, instance_writer:false
   self.id_number = :number
 
-  #this is a cached copy of the https://www.e-conomic.com/secure/api1/EconomicWebservice.asmx?WSDL
-  client wsdl: 'wsdls/economic.wsdl'
-
   def self.config
     Settings.crm_config
   end
 
-  class_operations :connect, :disconnect
-
-  def self.connected?
-    client.globals[:headers].present? && client.globals[:headers]['cookie'].present?
-  end
-
   def self.connect
-    clean_headers
-    connections = config.select{|k,v| [:agreement_number, :user_name, :password].include? k}
-    super connections do |resp|
-      global(:headers, { 'cookie' => resp.http.headers['set-cookie']})
-    end
+    global(:headers, { 'cookie' => Auth.connected?? Auth.cookie : Auth.connect})
   end
 
-  def self.disconnect
-    super
+  def self.reconnect
     clean_headers
+    global(:headers, { 'cookie' => Auth.connect})
   end
 
   def self.clean_headers
@@ -35,12 +24,12 @@ class Savon::So24::Model::Base
   end
 
   def self.request(operation, *args)
-    connected? || (operation == :connect) || connect
+    connect
     begin
       super
     rescue Savon::SOAPFault => ex
       if ex.is_auth_not_logged?
-        connect && super
+        reconnect && super
       else
         raise ex
       end
@@ -133,4 +122,6 @@ class Savon::So24::Model::Base
   def check_external_id! action = ''
     throw Exception.new "Can not #{action} #{self.class.name} (id=#{id}) without external_id" unless external_id?
   end
+end
+end
 end

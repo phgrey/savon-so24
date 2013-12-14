@@ -7,9 +7,8 @@ module Savon
     module Operations
 
       def client globals={}
-        #we will have to convert theese tags ourselves
-        globals[:convert_request_keys_to] = :none
-        @@client ||= Savon::Client.new(globals)
+        @client ||= ClientManager.client(model = snake_name) ||
+            ClientManager.make_client(model, globals.merge(convert_request_keys_to: :none))
       rescue Savon::InitializationError
         raise_initialization_error!
       end
@@ -49,13 +48,13 @@ module Savon
         end
       end
 
-      def request operation, message, locals={}, &block
+      def request operation, message={}, locals={}, &block
         message = convert_message_keys message
         locals[:message] = message
-        operation_name = full_operation_name(operation)
-        resp = client.call operation_name.to_sym, locals
+        #operation_name = full_operation_name(operation)
+        resp = client.call operation.to_sym, locals
         block.call resp if block_given?
-        resp.body[(operation_name+'_response').to_sym][(operation_name+'_result').to_sym]
+        resp.body[(operation.to_s+'_response').to_sym][(operation.to_s+'_result').to_sym]
       end
 
       protected
