@@ -1,7 +1,7 @@
 module Savon::So24
   module Helper
     def config
-      Model::Base.config
+      Settings.instance.crm_config
     end
 
   end

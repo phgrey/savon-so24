@@ -3,34 +3,24 @@ module Savon::So24
     extend Operations
 
     class << self
-      attr_accessor :cookie
-
-      def credentials
-        # TODO: make correct config saving and getting
-        #Settings.crm_config
-        {
-            username: '265026271343230_9128',
-            password: '763047fac329421bedcc60b7a1786e4a',
-            type: 'Client',
-            #type: '24SO',
-        }
+      def connect
+        locals = {credential:Savon::So24.config.select{|k,v| [:username, :password, :type].include? k}}
+        connected = request :login, locals  do |resp|
+          @cookie =  resp.http.headers['set-cookie']
+        end
+        connected && @cookie
       end
 
-      def connect
-        #locals = {credential:config.select{|k,v| [:sername, :password].include? k}.merge({type:'Client'})}
-        locals = {credential:credentials}
-        connected = request :login, locals  do |resp|
-          self.cookie =  resp.http.headers['set-cookie']
-        end
-        connected && self.cookie
+      def cookie
+        @cookie || connect
       end
 
       def connected?
-        !cookie.nil? && check_connected
+        !@cookie.nil? && check_connected
       end
 
       def check_connected
-        global(:headers, { 'cookie' => cookie})
+        global(:headers, { 'cookie' => @cookie})
         request :get_identity
         true
       rescue

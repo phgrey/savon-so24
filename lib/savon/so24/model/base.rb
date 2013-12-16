@@ -6,13 +6,6 @@ module Savon::So24
   class_attribute :id_number, instance_writer:false
   self.id_number = :number
 
-  def self.config
-    Settings.crm_config
-  end
-
-  def self.connect
-    global(:headers, { 'cookie' => Auth.connected?? Auth.cookie : Auth.connect})
-  end
 
   def self.reconnect
     clean_headers
@@ -24,7 +17,8 @@ module Savon::So24
   end
 
   def self.request(operation, *args)
-    connect
+    #we will re-set this header every time just to be sure it is set
+    global(:headers, { 'cookie' => Auth.cookie})
     begin
       super
     rescue Savon::SOAPFault => ex
