@@ -3,7 +3,8 @@ class Savon::So24::ClientManager
     def make_client model, globals = {}
       @clients ||={}
       wsdl = globals[:wsdl] || wsdl_for(model) || raise(Savon::InitializationError, 'please specify wsdl')
-      @clients[wsdl] = Savon::Client.new globals.merge wsdl:wsdl
+
+      @clients[wsdl] = Savon::Client.new globals.merge wsdl:wsdl, log:Rails.env == 'development'
     end
 
     def client model

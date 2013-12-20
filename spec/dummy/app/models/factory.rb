@@ -1,4 +1,5 @@
-#TODO:move this to spec/support/ (maybe)
+require 'factory_girl/syntax/methods'
+
 class Factory
   extend FactoryGirl::Syntax::Methods
 

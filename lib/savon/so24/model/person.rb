@@ -1,12 +1,13 @@
 module Savon::So24::Model
   class Person < Base
 
-    def self.all
-      request(:get_persons, person_search:{})[:person_item]
+    def self.by_company company_id
+      where customer_id:company_id
     end
 
-    def self.find id
-      request(:get_persons, person_search:{id:id})[:person_item]
+  protected
+    def self.snake_name_plural
+      'persons'
     end
 
   end

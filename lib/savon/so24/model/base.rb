@@ -3,6 +3,8 @@ module Savon::So24
     class Base
       extend Operations
 
+
+      #several methods for the connect - disconnect
       def self.reconnect
         clean_headers
         global(:headers, { 'cookie' => Auth.connect})
@@ -27,8 +29,29 @@ module Savon::So24
       end
 
 
+      #the request methods, trying to make them common for all models
+      def self.create data
+        request "save_#{snake_name}", "#{snake_name}_item" => data
+      end
 
+      #this is a base method for most part of requests
+      #probably will be overwritter for a number of models
+      def self.where params = {}
+        request(search_action_name, "#{snake_name}_search" =>params)["#{snake_name}_item".to_sym]
+      end
 
+      def self.find id
+        where id:id
+      end
+
+      def self.all
+        where
+      end
+
+     protected
+      def self.search_action_name
+        "get_#{snake_name.pluralize}"
+      end
 
     end
   end

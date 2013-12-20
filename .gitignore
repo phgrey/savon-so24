@@ -17,4 +17,5 @@
 /spec/dummy/log/*.pid
 /spec/dummy/config/database.yml
 /spec/dummy/tmp/*
+/spec/dummy/app/models/settings.rb
 

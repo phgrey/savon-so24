@@ -1,13 +1,13 @@
 module Savon::So24::Model
   class Product < Base
 
-    def self.all
-      request(:get_product, product_search:{})[:product_item]
-    end
-
     def self.find id
-      request(:get_product, product_search:{product_id:id})[:product_item]
+      where product_id:id
     end
 
+  protected
+    def self.snake_name_plural
+      snake_name
+    end
   end
 end

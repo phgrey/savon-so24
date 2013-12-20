@@ -1,13 +1,13 @@
 module Savon::So24::Model
   class Invoice < Base
 
-    def self.all
-      request(:get_invoices, invoice_search:{})[:invoice_item]
+    def self.find id
+      where order_id_from:id, order_id_to:id
     end
 
-    def self.find id
-      list = request :get_invoices, invoice_search:{order_id_from:id, order_id_to:id}
-      list# && list[:invoice_item]
+    protected
+    def self.search_action_name
+      "get_invoices_with_rows"
     end
   end
 end
