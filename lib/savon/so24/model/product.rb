@@ -6,8 +6,8 @@ module Savon::So24::Model
     end
 
   protected
-    def self.snake_name_plural
-      snake_name
+    def self.search_action_name
+      'get_product'
     end
   end
 end

@@ -5,9 +5,13 @@ module Savon::So24::Model
       where customer_id:company_id
     end
 
+    def self.relate data
+      request(:make_relation, relation:data)
+    end
+
   protected
-    def self.snake_name_plural
-      'persons'
+    def self.search_action_name
+      'get_persons'
     end
 
   end

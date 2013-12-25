@@ -14,7 +14,7 @@ class Order < ActiveRecord::Base
   def export
     location = user.locations.first
     self.class.remote.create({
-      company_id:company.external_id.to_i,
+      company_id:user.external_id.to_i,
       company_name: 'GETTEXT',
       delivery_name: company.title,
       addresses:{address:[location.for_so24, location.for_so24('Invoice')]},  #CHECKIT: another format inside

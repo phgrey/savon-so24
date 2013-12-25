@@ -3,7 +3,7 @@ class Company < ActiveRecord::Base
   has_many :users
   has_many :locations, through: :users
 
-  so24 :company
+  so24 name: :company, autoremote:true
 
   def export
     location = locations.first

@@ -17,6 +17,9 @@ module Savon
         client.globals[option] = value
       end
 
+      def config
+        Savon::So24.config
+      end
 
       def raise_initialization_error!
         raise Savon::InitializationError,

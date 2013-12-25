@@ -37,7 +37,8 @@ module Savon::So24
       #this is a base method for most part of requests
       #probably will be overwritter for a number of models
       def self.where params = {}
-        request(search_action_name, "#{snake_name}_search" =>params)["#{snake_name}_item".to_sym]
+        res = request(search_action_name, "#{snake_name}_search" =>params)
+        res && res["#{snake_name}_item".to_sym] || []
       end
 
       def self.find id
@@ -48,7 +49,11 @@ module Savon::So24
         where
       end
 
-     protected
+      def data
+        self.class.find local.external_id
+      end
+
+      protected
       def self.search_action_name
         "get_#{snake_name.pluralize}"
       end

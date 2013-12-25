@@ -4,7 +4,8 @@ module Savon::So24
 
     class << self
       def connect
-        locals = {credential:Savon::So24.config.select{|k,v| [:username, :password, :type].include? k}}
+        locals = {credential:config.select{|k,v| [:username, :password, :type].include? k}}
+        global(:headers, {})
         connected = request :login, locals  do |resp|
           @cookie =  resp.http.headers['set-cookie']
         end

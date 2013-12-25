@@ -6,7 +6,7 @@ module Savon::So24
       throw new Exception "Class #{self.name} already has included another Savon::So24 model" if self.included_modules.include? LocalMethods
       class_attribute :so24_class
       self.so24_class = e_class
-      include LocalMethods
+      include LocalMethods  if options[:autoremote]
       throw new Exception "Class #{e_class} has been already included by another ActiveRecord model" if e_class.included_modules.include? RemoteMethods
       e_class.send :include, RemoteMethods
     end
@@ -46,6 +46,10 @@ module Savon::So24
 
       def respond_to? name
         @local.respond_to?(name) || super
+      end
+
+      def local
+        @local
       end
     end
   end
