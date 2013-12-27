@@ -4,6 +4,7 @@ module Savon::So24
       extend Operations
 
 
+
       #several methods for the connect - disconnect
       def self.reconnect
         clean_headers
@@ -56,6 +57,10 @@ module Savon::So24
       protected
       def self.search_action_name
         "get_#{snake_name.pluralize}"
+      end
+
+      def self.extract_values hash
+        hash && hash.values.flatten.map{|v|v[:value]}.select{|v|!v.nil?} || []
       end
 
     end

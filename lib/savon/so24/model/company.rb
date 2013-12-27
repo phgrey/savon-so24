@@ -1,8 +1,10 @@
 module Savon::So24::Model
   class Company < Base
 
-    def self.find id
-      request(:get_companies, company_search:{id:id})[:company_item]
+  protected
+    def self.search_action_name
+      'get_companies_detailed'
     end
+
   end
 end

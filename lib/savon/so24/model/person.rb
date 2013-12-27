@@ -11,7 +11,7 @@ module Savon::So24::Model
 
   protected
     def self.search_action_name
-      'get_persons'
+      'get_persons_detailed'
     end
 
   end
