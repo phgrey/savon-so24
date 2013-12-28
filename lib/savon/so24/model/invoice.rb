@@ -5,6 +5,10 @@ module Savon::So24::Model
       where order_id_from:id, order_id_to:id
     end
 
+    def self.delete id
+      request :delete_order, order_id:id
+    end
+
     protected
     def self.search_action_name
       "get_invoices_with_rows"

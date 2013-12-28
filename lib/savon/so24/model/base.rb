@@ -50,6 +50,14 @@ module Savon::So24
         where
       end
 
+      def self.delete id
+        raise('Not implemented yet')
+      end
+
+      def delete
+        self.class.delete external_id
+      end
+
       def data
         self.class.find local.external_id
       end
