@@ -39,11 +39,12 @@ module Savon::So24
       #probably will be overwritter for a number of models
       def self.where params = {}
         res = request(search_action_name, "#{snake_name}_search" =>params)
-        res && res["#{snake_name}_item".to_sym] || []
+        ret = res && res["#{snake_name}_item".to_sym] || []
+        ret.is_a?(Array) ? ret : [ret]
       end
 
       def self.find id
-        where id:id
+        where(id:id).first
       end
 
       def self.all
