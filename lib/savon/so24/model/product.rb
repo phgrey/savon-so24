@@ -2,7 +2,7 @@ module Savon::So24::Model
   class Product < Base
 
     def self.find id
-      where product_id:id
+      where(product_id:id).first
     end
 
   protected

@@ -2,7 +2,7 @@ module Savon::So24::Model
   class Invoice < Base
 
     def self.find id
-      where order_id_from:id, order_id_to:id
+      where(order_id_from:id, order_id_to:id).first
     end
 
     def self.delete id
