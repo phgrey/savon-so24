@@ -7,6 +7,10 @@ ActiveRecord::Base.send(:extend, Savon::So24::ActiveRecord)
 module Savon
   module So24
     extend Helper
+
+    def self.init
+      SOAPFault.send :include, So24::Exception
+    end
+
   end
-  SOAPFault.send :include, So24::Exception
 end
