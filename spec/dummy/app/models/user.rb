@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   def export
     location = locations.first
+    company.external_id = company.export if company.external_id.to_i == 0
     remote.class.create({
       consumer_person_no: id,
       id: external_id.to_i,
