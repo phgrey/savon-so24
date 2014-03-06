@@ -63,6 +63,17 @@ module Savon::So24
         self.class.find local.external_id
       end
 
+      def self.export_all
+        local.all.map{|p|
+          begin
+            create p.for_economic
+          rescue Savon::SOAPFault => ex
+            raise ex unless ex.is_integrity?
+            false
+          end
+        }
+      end
+
       protected
       def self.search_action_name
         "get_#{snake_name.pluralize}"
