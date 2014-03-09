@@ -1,8 +1,10 @@
 require 'wasabi/parser'
 
+#TODO: require a economic's patch or make common
 # Here we will make some patches on a Wasabi::Parser
 # to be able to save/load parsed data instead of parsing file
 # bc e-conomic file is too large and parses few minutes
+=begin
 
 Wasabi::Parser.class_eval do
   def parse
@@ -16,10 +18,9 @@ Wasabi::Parser.class_eval do
     save_parser
   end
 
-  #TODO: find less hard way to count md5 of the file
   def cache_file
     hash = Digest::MD5.hexdigest document.canonicalize
-    Rails.root.join("tmp/cache/wsdl-#{hash}.tmp")
+    Rails.root.join("tmp/wsdls/so24-#{hash}.tmp")
   end
 
   def load_parser
@@ -37,3 +38,4 @@ Wasabi::Parser.class_eval do
     end
   end
 end
+=end

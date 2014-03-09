@@ -8,7 +8,7 @@ module Savon
 
       def client globals={}
         @client ||= ClientManager.client(model = snake_name) ||
-            ClientManager.make_client(model, globals.merge(convert_request_keys_to: :none))
+            ClientManager.make_client(model, globals)
       rescue Savon::InitializationError
         raise_initialization_error!
       end

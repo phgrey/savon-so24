@@ -2,9 +2,26 @@ class Savon::So24::ClientManager
   class << self
     def make_client model, globals = {}
       @clients ||={}
-      wsdl = globals[:wsdl] || wsdl_for(model) || raise(Savon::InitializationError, 'please specify wsdl')
+      globals[:wsdl]||= wsdl_for(model) || raise(Savon::InitializationError, 'please specify wsdl')
 
-      @clients[wsdl] = Savon::Client.new globals.merge wsdl:wsdl, log:Rails.env == 'development'
+      @clients[globals[:wsdl]]||= Savon::Client.new make_globals globals
+    end
+
+
+    def make_globals globals
+      #we will have to convert theese tags ourselves
+      globals[:convert_request_keys_to] = :none
+      globals[:log] = Rails.env == 'development'
+      globals[:wsdl] = save_wsdl globals[:wsdl] if globals[:wsdl]
+      globals
+    end
+
+    def save_wsdl url
+      path = Rails.root.join('tmp/wsdls/').join url.split('/').last.split('?').first
+      `wget -O #{path} -q #{url}` unless path.exist?
+      path
+    rescue
+      url
     end
 
     def client model
