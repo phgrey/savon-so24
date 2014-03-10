@@ -6,9 +6,13 @@ module Savon::So24
 
 
       #several methods for the connect - disconnect
-      def self.reconnect
+      def self.connect
         clean_headers
         global(:headers, { 'cookie' => Auth.connect})
+      end
+
+      def self.connected?
+        Auth.connected?
       end
 
       def self.clean_headers
@@ -22,7 +26,7 @@ module Savon::So24
           super
         rescue Savon::SOAPFault => ex
           if ex.is_auth_not_logged?
-            reconnect && super
+            connect && super
           else
             raise ex
           end
