@@ -12,6 +12,10 @@ module Savon::So24::Exception
     check_with_regexp(/System\.Exception: The request to .* is not authenticated/)
   end
 
+  def short
+    message
+  end
+
   private
 
   def check_with_regexp reg
